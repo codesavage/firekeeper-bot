@@ -2,6 +2,18 @@
     "moduleName": "test",
 	"friendlyName": "Test Commands",
 	"commands": {
+		"newflip":{
+			"functionName": "newflip",
+			"arguments": {
+				"0": {
+					"name": "bet",
+					"default": "10",
+					"required": "true"
+				}
+			},
+			"helpText": "",
+			"shortHelp": ""
+		},
 		"jail":{
 			"functionName": "jail",
 			"arguments": {

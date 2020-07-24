@@ -7,6 +7,82 @@
 #- Rewrite the qrcode command to use an image-based service that can be attached to an embed (https://www.qrcode-monkey.com/qr-code-api-with-logo)
 #- Look into fixing actioncloud's word sizes
 
+global newflip
+async def newflip(message, args):
+	try:
+		betAmount = abs(int(args[0]))
+	except ValueError:
+		await sendEmbed(message.channel, None, 'Bet amount must be a number! (ex. flip 1000)')
+		return
+	playerBalance = _getbalance(message.author.id)
+	if betAmount > playerBalance:
+		await sendEmbed(messagechannel, None, 'Not enough money to cover the bet! You currently have '+str(playerBalance)+' '+currencyName[message.guild.id]+'.')
+		return
+	goodChoices = ['heads', 'tails', 'stand']
+	tier = 1
+	stake = bet / 2
+	playing = True
+
+	while playing:
+		choice = ''
+		while choice not in goodChoices:
+			#choice = input('Bet: %s\nRound: %s\nStake: %s\n\nWill you bet on heads or tails, or will you stand?\n' % (bet, tier, stake))
+			choice = 'heads'
+		if choice == 'stand':
+			playing = False
+			break
+		flip = random.choice(['heads', 'tails'])
+		if flip == 'heads' and choice == 'heads' or flip == 'tails' and choice == 'tails':
+			outcome = 'win'
+		else:
+			outcome = 'lose'
+		await sendEmbed(message.channel, None, 'The flip was %s. You %s!\n' % (flip, outcome))
+		if outcome == 'win':
+			tier += 1
+			stake = stake * 2
+		else:
+			playing = False
+
+	if stake > bet:
+		output = 'You made it to round %s and won %s over your initial bet.' % (tier, stake - bet)
+	elif stake < bet:
+		output = 'You made it to round %s and lost %s beyond your initial bet.' % (tier, bet - stake)
+	else:
+		output = 'You made it to round %s and broke even with your bet.' % tier
+	await sendEmbed(message.channel, None, output)
+
+
+#if betFlip == 'heads' or betFlip == 'h' or betFlip == 'tails' or betFlip == 't':
+
+
+global flip
+async def flip(message, args):
+	playerBalance = _getbalance(message.author.id)
+	try:
+		betAmount = abs(int(args[0]))
+		betFlip = str(args[1])
+	except ValueError:
+		await message.channel.send('Bet amount must be a number and you must choose heads or tails! (ex. flip 100 heads)')
+		return
+	betFlip = betFlip.lower()
+	if betFlip == 'heads' or betFlip == 'h' or betFlip == 'tails' or betFlip == 't':
+		#betFlip = betFlip[:1]
+		if betAmount > playerBalance:
+			await message.channel.send('Not enough money to cover the bet! You currently have '+str(playerBalance)+' '+currencyName[message.guild.id]+'.')
+		else:
+			tmp = await message.channel.send('The flip is...')
+			await asyncio.sleep(1)
+			flipResult = random.choice(['heads', 'tails'])
+			if flipResult[:1] == betFlip[:1]:
+				await tmp.edit(content='The flip is %s! You win %s %s.' % (flipResult, betAmount, currencyName[message.guild.id]))
+				winnings = betAmount
+			else:
+				await tmp.edit(content='The flip is %s. You lose %s %s.' % (flipResult, betAmount, currencyName[message.guild.id]))
+				winnings = betAmount * -1
+			_incrementbalance(message.author.id, winnings)
+	else:
+		await message.channel.send('You must bet on either heads or tails! (ex. flip 100 heads)')
+
 
 global jail
 async def jail(message, args):
