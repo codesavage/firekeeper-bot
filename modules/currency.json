@@ -1,0 +1,53 @@
+{
+    "moduleName": "currency",
+	"friendlyName": "Currency-related commands",
+	"commands": {
+		"annual": {
+			"functionName": "annual",
+			"arguments": {},
+			"helpText": "can be used once every 365 days to get your annual allowance. You will receive a random amount between 250 and 1000 souls for each day of the year.",
+			"shortHelp": "gives you an annual allowance."
+		},
+		"balance": {
+			"functionName": "balance",
+			"arguments": {},
+			"helpText": "shows your current global currency balance.",
+			"shortHelp": "shows your current balance."
+		},
+		"centennial": {
+			"functionName": "centennial",
+			"arguments": {},
+			"helpText": "can be used once every 100 years to get your centennial allowance. You will receive a random amount between 250 and 1000 souls for each day of the century.",
+			"shortHelp": "gives you a centennial allowance."
+		},
+		"daily": {
+			"functionName": "daily",
+			"arguments": {},
+			"helpText": "can be used once every 24 hours to get your daily allowance of 500 souls.",
+			"shortHelp": "gives you a daily allowance."
+		},
+		"give": {
+			"functionName": "give",
+			"arguments":{
+				"0": {
+					"name": "amount",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "mentions",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "is used to gift currency to another user. Specify an amount and mention a user (e.g. `give 1000 @Code`). You can mention multiple users to give that amount to more than one person at once.",
+			"shortHelp": "gives currency to someone else."
+		},
+		"weekly": {
+			"functionName": "weekly",
+			"arguments": {},
+			"helpText": "can be used once every 7 days to get your weekly allowance. You will receive a random amount between 250 and 1000 souls for each day of the week.",
+			"shortHelp": "gives you a weekly allowance."
+		}
+	}
+}

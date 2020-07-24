@@ -1,0 +1,76 @@
+{
+    "moduleName": "usermanagement",
+	"friendlyName": "User Management",
+	"commands": {
+		"actionchart": {
+			"functionName": "actionchart",
+			"arguments": {},
+			"helpText": "displays a chart showing how many times various bot commands have been used in the guild. Mention a user after the command to see commands for that user (e.g. `actionchart @Code`), or use without a name to see commands for the whole guild.",
+			"shortHelp": "displays a chart showing how many times bot commands have been used."
+		},
+		"leaderboard": {
+			"functionName": "leaderboard",
+			"arguments": {
+				"0": {
+					"name": "argument",
+					"default": "xp",
+					"required": "true"
+				}
+			},
+			"helpText": "shows the levels and XP rankings of all members in the guild (with the exception of bots and members that have 0 XP).",
+			"shortHelp": "shows the XP rankings for the guild."
+		},
+		"nick":{
+			"functionName": "nick",
+			"arguments": {
+				"0": {
+					"name": "options",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "can be used without arguments to generate a random nickname for yourself every 30 minutes. If you want a custom nickname (for a fee), you can specify it after the command (e.g. `nick Awesome Boy`). You can use `nickname reset` to clear any nicknames once the timer is up.",
+			"shortHelp": "sets random or requested nicknames."
+		},
+		"profile": {
+			"functionName": "profile",
+			"arguments": {},
+			"helpText": "shows various information about yourself or another user. A user can be mentioned after the command to see their profile information instead of your own (e.g. `profile @Code`).",
+			"shortHelp": "shows basic profile information about a user."
+		},
+		"roles": {
+			"functionName": "roles",
+			"arguments": {
+				"0": {
+					"name": "argument",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "roleName",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to add or remove self-assignable roles. Use without arguments (e.g. `roles`) to see the list of available roles.\nAdditionally, the following arguments may be used:\n__*Add*__ - Used to give yourself a role (e.g. `roles add pink`).\n__*Remove*__ - Used to remove a role that you have (e.g. `roles remove pink`).\n__*Usernames*__ - Used to see which roles a user has (e.g. `roles @Code`).",
+			"shortHelp": "views, adds, or removes self-assignable guild roles."
+		},
+		"roleadmin": {
+			"functionName": "roleadmin",
+			"arguments": {
+				"0": {
+					"name": "action",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "arguments",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to add or remove roles to either Discord roles or to the list of self-assignable roles. Use without arguments (e.g. `roleadmin`) to see the list of available roles.\n",
+			"shortHelp": "views, adds, or removes self-assignable roles to the guild."
+		}
+	}
+}

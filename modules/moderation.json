@@ -1,0 +1,195 @@
+{
+    "moduleName": "moderation",
+	"friendlyName": "Server Moderation Commands",
+	"commands": {
+		"admins": {
+			"functionName": "admins",
+			"arguments": {
+				"0": {
+					"name": "argument",
+					"default": ""
+				},
+				"1": {
+					"name": "mentions",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to show or configure admins for the server. Use without arguments (e.g. `admins`) to see the currently configured admins.\nAdditionally, the following arguments may be used:\n__*Add*__ - Used to add a user or role to the admin group (e.g. `admins add @Code`).\n__*Remove*__ - Used to remove a user or role to the admin group (e.g. `admins remove @Code`).\n__*Set*__ - Used to replace the currently set admins with a new group of users or roles (e.g. `admins set @Code @Way of Blue`).",
+			"shortHelp": "shows or configures admins for the server."
+		},
+		"ban": {
+			"functionName": "ban",
+			"arguments": {
+				"0": {
+					"name": "mention",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "reason",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to ban a user from the server. Additionally, the previous 7 days of messages from that user will be purged. A reason is required and will be recorded in the user's logs (e.g. `ban @Code for breaking rules repeatedly.`).",
+			"shortHelp": "removes a user from the server and bans them from rejoining."
+		},
+		"delete": {
+			"functionName": "delete",
+			"arguments": {
+				"0": {
+					"name": "number",
+					"default": "1",
+					"required": "true"
+				},
+				"1": {
+					"name": "username",
+					"default": ""
+				}
+			},
+			"helpText": "removes the last x messages from the channel (e.g. `delete 10`). You can mention a name if you only want to delete messages from a certain user (e.g. `delete 10 @Code`).",
+			"shortHelp": "removes recent messages from the server."
+		},
+		"kick": {
+			"functionName": "kick",
+			"arguments": {
+				"0": {
+					"name": "mention",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "reason",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to kick a user from the server. A reason is required and will be recorded in the user's logs (e.g. `kick @Code for ignoring mod warnings.`).",
+			"shortHelp": "removes a user from the server."
+		},
+		"logs": {
+			"functionName": "logs",
+			"arguments": {
+				"0": {
+					"name": "user",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "",
+			"shortHelp": "displays the disciplinary logs for a user (from warns, kicks, and bans)."
+		},
+		"modhelp": {
+			"functionName": "modhelp",
+			"arguments": {
+				"0": {
+					"name": "command",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "gives a description and usage for a specific moderation command (e.g. `modhelp warn`).",
+			"shortHelp": "shows mod-specific commands and help."
+		},
+		"modules": {
+			"functionName": "module",
+			"arguments": {
+				"0": {
+					"name": "argument",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "moduleName",
+					"default": ""
+				},
+				"2": {
+					"name": "channelName",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "is used to configure module-specific and channel-specific permissions. Use without arguments to see the list of loaded modules.\nAdditionally, the following arguments may be used:\n__*Check*__ - check channel permissions for a specific module (e.g. `modules check games`).\n__*Allow*__ - allows a module in a specific channel or set of channels (e.g. `modules allow games #bot-addictions`).\n__*Block*__ - blocks a module in a specific channel or set of channels (e.g. `modules block games #bot-addictions`).",
+			"shortHelp": "views or configures the bot's module-specific permissions."
+		},
+		"mute": {
+			"functionName": "mute",
+			"arguments": {
+				"0": {
+					"name": "user",
+					"default": "",
+					"required": "true"
+					},
+				"1": {
+					"name": "duration",
+					"default": "0"
+					}
+			},
+			"helpText": "",
+			"shortHelp": "prevents a user from speaking by deleting any messages that they post as long as they're muted."
+		},
+		"timedban": {
+			"functionName": "timedban",
+			"arguments": {
+				"0": {
+					"name": "duration",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "user",
+					"default": "",
+					"required": "true"
+				},
+				"2": {
+					"name": "reason",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"helpText": "",
+			"shortHelp": "removes a user from the server and prevents them from rejoining for a certain number of days."
+		},
+		"unban": {
+			"functionName": "unban",
+			"arguments": {
+				"0": {
+					"name": "userid",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "reason",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"helpText": "",
+			"shortHelp": "removes a user's ban, allowing them to rejoin the server."
+		},
+		"warn": {
+			"functionName": "warn",
+			"arguments": {
+				"0": {
+					"name": "username",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "reason",
+					"default": "",
+					"raw": "true",
+					"required": "true"
+				}
+				
+			},
+			"helpText": "adds a warning for misconduct to a user's logs. A reason for the warning must be specified (e.g. `warn @Code for posting memes in the #the-bonfire.`).\nYou can also use the check argument to view previous warnings for a user (e.g. `warn check @Code`).",
+			"shortHelp": "warns a user for misconduct, or checks for previous warnings."
+		}
+	}
+}

@@ -1,0 +1,135 @@
+{
+    "moduleName": "system",
+	"friendlyName": "System Management Commands",
+	"commands": {
+		"addresponse": {
+			"functionName": "addresponse",
+			"arguments": {},
+			"shortHelp": "adds something that you want the bot to automatically response to."
+		},
+		"ansible": {
+			"functionName": "ansible",
+			"helpText": "https://gph.is/1uGmIOO",
+			"shortHelp": "https://gph.is/g/aNWB8lo",
+			"arguments": {
+				"0": {
+					"name": "action",
+					"default": "listguilds"
+				},
+				"1": {
+					"name": "parameters",
+					"default": "",
+					"raw": "true"
+				}
+			}
+		},
+		"ee": {
+			"functionName": "ee",
+			"arguments": {
+				"0": {
+					"name": "code",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "executes arbitrary python code. No security risk here!\n*Example usage:*\n`?ee asyncio.ensure_future(client.send_message(message.channel, 'message text'))`",
+			"shortHelp": "executes python code."
+		},
+		"quit": {
+			"functionName": "quit",
+			"arguments": {},
+			"helpText": "shuts the bot down. Only works fully on the testing bot, as the prod bot will automatically restart itself.",
+			"shortHelp": "shuts the bot down."
+		},
+		"reload": {
+			"functionName": "reload",
+			"arguments": {},
+			"helpText": "reloads all modules without shutting the bot down.",
+			"shortHelp": "reloads all modules."
+		},
+		"responses": {
+			"functionName": "responses",
+			"arguments": {},
+			"shortHelp": "shows the list of things that the bot will automatically respond to in the guild."
+		},
+		"removeresponse": {
+			"functionName": "removeresponse",
+			"arguments": {
+				"0": {
+					"name": "index",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"shortHelp": "removes a specific response from the guild."
+		},
+		"say": {
+			"functionName": "say",
+			"arguments": {
+				"0": {
+					"name": "channel",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "text",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"shortHelp": "makes the bot say something in the specified channel.\n*--Syntax:* `!say <channel> <message content>`\n*--Example:* `!say #general Hello everyone!`"
+		},
+		"serverlist":{
+			"functionName": "serverlist",
+			"arguments": {},
+			"helpText": "lists all guilds the bot is currently in, along with the guild ID and member count.",
+			"shortHelp": "lists all guilds the bot is currently in."
+		},
+		"serverhealth": {
+			"functionName": "serverhealth",
+			"arguments": {},
+			"helpText": "shows diagnostic info of the bot guild, such as resource usage, ping, and uptime.",
+			"shortHelp": "shows some diagnostic information of the bot guild."
+		},
+		"syshelp": {
+			"functionName": "syshelp",
+			"arguments": {
+				"0": {
+					"name": "command",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "gives a description and usage for a specific system/test command (e.g. `syshelp quit`).",
+			"shortHelp": "shows system-specific commands and help."
+		},
+		"testdb": {
+			"functionName": "testdb",
+			"arguments": {},
+			"helpText": "tests the connection to MongoDB and returns information about the cluster/shard.",
+			"shortHelp": "tests the connection to the database."
+		},
+		"timers": {
+			"functionName": "timers",
+			"arguments": {},
+			"shortHelp": "shows a list of active timers in the guild."
+		},
+		"xpchannels": {
+			"functionName": "xpchannels",
+			"arguments": {
+				"0": {
+					"name": "modifier",
+					"default": "",
+					"required": "true"
+				},
+				"1": {
+					"name": "channel",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			}
+		}
+	}
+}

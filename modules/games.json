@@ -1,0 +1,66 @@
+{
+    "moduleName": "games",
+	"friendlyName": "Games and Betting",
+	"commands": {
+		"21": {
+			"functionName": "blackjack",
+			"arguments": {
+				"0": {
+					"name": "bet",
+					"default": "100"
+				}
+			},
+			"helpText": "allows you to play blackjack from a persistent per-user 6 deck shoe.\n\nShoe is shuffled from fresh decks on `21 shuffle`, or before the deal when less than 30 cards remain in the shoe.\n\nInsurance offered.\nSplit aces hit once.\n5 card charlie wins.\nDouble after split allowed.\nDealer does not hit on soft 17.\nSurrender allowed as a first play.\nResplits allowed indefinitely, except after splitting aces.\n\nTo locate your game, type show 21.",
+			"shortHelp": "plays a game of blackjack."
+		},
+		"flip": {
+			"functionName": "flip",
+			"arguments": {
+				"0": {
+					"name": "amount",
+					"default": "10",
+					"required": "true"
+				},
+				"1": {
+					"name": "side",
+					"default": "heads",
+					"required": "true"
+				}
+			},
+			"helpText": "is for betting on the toss of a coin. Specify an amount and a side to bet on (heads or tails) after the command (e.g. `flip 100 heads`).",
+			"shortHelp": "flips a coin."
+		},
+		"hangman": {
+			"functionName": "hangman",
+			"arguments": {
+				"0": {
+					"name": "theme",
+					"default": "all",
+					"required": "true"
+				},
+				"1": {
+					"name": "bet",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "is a game where you try to guess a word letter-by-letter. Every time you get a letter wrong, another piece of the hangman appears. Guess the word before he's completed or it's game over!\n\nYou can specify an optional category (e.g. `hangman anime`) from the following list: Animals, Anime, Countries, Games, Movies, Music, Tech, and TV. If no category is specified or an invalid category is entered, it will default to all categories.\n\nThis is a betting game! You can bet any amount between 10 and 100,000. You must specify your bet after a category for it to register (e.g. `hangman all 1000`).\n\nPayout (only applicable if betting):\nWinning the game will give you twice the amount you bet.\nAccuracy - There is a tiered bonus for keeping your accuracy above 90% (bonus: 10% of bet), above 95% (bonus: 25% of bet), and at 100% (bonus: 50% of bet).\nGuessing - If you guess correctly, you get an additional 5% of your bet amount for every hidden letter on the board when you guess.\n\nExtra commands (usable once the game is started):\n`guess` - Guess the answer (put the answer after the word guess). The answer must have the exact punctuation and spacing shown, or it will be counted at wrong!\n`show hangman` - Sends another message with the game info. Use this if you have an active game but can't find it.\n`quit hangman` - Quits the active game. You will forfeit any bet you have placed on the game.",
+			"shortHelp": "plays a word-guessing game of Hangman."
+		},
+		"slots": {
+			"functionName": "slots",
+			"arguments": {
+				"0": {
+					"name": "modifier",
+					"default": ""
+				},
+				"1": {
+					"name": "bet",
+					"default": ""
+				}
+			},
+			"helpText": "plays a virtual slot machine. Specify a bet amount between 1 and 100,000 (e.g. `slots 100`). Get 3 in a row of any symbol to win. $ are scatters and win even if there's only one. ~ are wilds that can count as any other regular symbol. + symbols give you 100 free credits. You can use some or all of your free credits at any time (e.g. `slots 100 free`).",
+			"shortHelp": "plays three-reel slots."
+		}
+	}
+}

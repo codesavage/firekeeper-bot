@@ -1,0 +1,75 @@
+{
+    "moduleName": "utilities",
+	"friendlyName": "Miscellaneous Utilities",
+	"commands": {
+		"choose":{
+			"functionName": "choose",
+			"arguments": {
+				"0": {
+					"name": "choices",
+					"default": "",
+					"raw": "true",
+					"required": "true"
+				}
+			},
+			"helpText": "will pick something for you between a list of things. Separate different items with a comma and space (e.g. `choose A, B, C`).",
+			"shortHelp": "selects an item from a list of options."
+		},
+		"server": {
+			"functionName": "server",
+			"arguments": {},
+			"helpText": "used to show information about the server, including the owner, region, member count, and server age.",
+			"shortHelp": "shows information about the server."
+		},
+		"help": {
+			"functionName": "help",
+			"arguments": {
+				"0": {
+					"name": "command",
+					"default": "",
+					"required": "true"
+				}
+			},
+			"helpText": "gives a description and usage for a specific command (e.g. `help daily`).",
+			"shortHelp": "shows commands and help."
+		},
+		"ping": {
+			"functionName": "ping",
+			"arguments": {},
+			"helpText": "shows the latency between the bot server and Discord.",
+			"shortHelp": "shows current bot network latency."
+		},
+		"qr": {
+			"functionName": "qr",
+			"arguments": {
+				"0": {
+					"name": "data",
+					"default": "",
+					"required": "true",
+					"raw": "true"
+				}
+			},
+			"helpText": "produces a QR code in PNG format from user input. (e.g. `qr https://www.google.com`).",
+			"shortHelp": "produces a QR code."
+		},
+		"version":{
+			"functionName": "version",
+			"arguments": {},
+			"helpText": "shows the current running version of Fire Keeper, as well as some additional information.",
+			"shortHelp": "shows the current bot version."
+		},
+		"weather":{
+			"functionName": "weather",
+			"arguments": {
+				"0": {
+					"name": "location",
+					"default": "Area 51, Nevada",
+					"raw": "true",
+					"required": "true"
+				}
+			},
+			"helpText": "gives a local weather report for the day. Specify a city or zip code after the command (e.g. `weather San Diego`).",
+			"shortHelp": "gives a weather report for a city/zip code."
+		}
+	}
+}

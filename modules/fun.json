@@ -1,0 +1,75 @@
+{
+    "moduleName": "fun",
+	"friendlyName": "Fun and Silliness",
+	"commands": {
+		"8ball": {
+			"functionName": "eightball",
+			"arguments": {
+				"0": {
+					"name": "question",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "reaches into the future to find the answers to your questions. It knows what will be, and is willing to share this with you (e.g. `8ball Will senpai ever notice me?`).",
+			"shortHelp": "asks the all-knowing 8ball a question."
+		},
+		"compliment": {
+			"functionName": "compliment",
+			"arguments": {
+				"0": {
+					"name": "arguments",
+					"default": "",
+					"raw": "true"
+				}
+			},
+			"helpText": "gives a random compliment to the user of your choice (e.g. `compliment @Code`).",
+			"shortHelp": "says something nice to someone."
+		},
+		"draw": {
+			"functionName": "draw",
+			"arguments": {
+				"0": {
+					"name": "drawCount",
+					"default": "0"
+				},
+				"1": {
+					"name": "jokers",
+					"default": ""
+				}
+			},
+			"helpText": "pulls a certain number of cards (up to 10) randomly from a deck (e.g. `draw 4`). You can specify 'jokers' after the number if you want to include jokers in the deck (e.g. `draw 4 jokers`).",
+			"shortHelp": "draws a number of cards."
+		},
+		"quote": {
+			"functionName": "quote",
+			"arguments": {
+				"0": {
+					"name": "mention",
+					"default": ""
+				},
+				"1": {
+					"name": "message",
+					"default": ""
+				}
+			},
+			"helpText": "Records or retrieves a user's quotable quotes.",
+			"shortHelp": "records or retrieves quotes."
+		},
+		"roll": {
+			"functionName": "roll",
+			"arguments": {
+				"0": {
+					"name": "number",
+					"default": "1"
+				},
+				"1": {
+					"name": "sides",
+					"default": "d6"
+				}
+			},
+			"helpText": "throws some dice. Specify the number of dice to roll (between 1 and 20) and the number of sides the dice will have (from d3 to d100) after the command (e.g. `roll 4 d20`).",
+			"shortHelp": "rolls a number of dice."
+		}
+	}
+}
