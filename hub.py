@@ -521,7 +521,7 @@ def isCommandExempt(command):
 	return command in exemptCommands
 
 def isModuleAllowedHere(guildId, channelId, moduleName):
-	return _getmodulerestriction(moduleName, guildId, channelId) != False
+	return _getmodulerestriction(moduleName, guildId, channelId) == False
 
 loadConfig()
 loadModules()
