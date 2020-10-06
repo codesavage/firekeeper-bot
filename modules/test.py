@@ -46,42 +46,10 @@ async def newflip(message, args):
 	if stake > bet:
 		output = 'You made it to round %s and won %s over your initial bet.' % (tier, stake - bet)
 	elif stake < bet:
-		output = 'You made it to round %s and lost %s beyond your initial bet.' % (tier, bet - stake)
+		output = 'You made it to round %s. You lost your initial bet of %s and potential winnings of %s.' % (tier, bet, stake - bet)
 	else:
 		output = 'You made it to round %s and broke even with your bet.' % tier
 	await sendEmbed(message.channel, None, output)
-
-
-#if betFlip == 'heads' or betFlip == 'h' or betFlip == 'tails' or betFlip == 't':
-
-
-global flip
-async def flip(message, args):
-	playerBalance = _getbalance(message.author.id)
-	try:
-		betAmount = abs(int(args[0]))
-		betFlip = str(args[1])
-	except ValueError:
-		await message.channel.send('Bet amount must be a number and you must choose heads or tails! (ex. flip 100 heads)')
-		return
-	betFlip = betFlip.lower()
-	if betFlip == 'heads' or betFlip == 'h' or betFlip == 'tails' or betFlip == 't':
-		#betFlip = betFlip[:1]
-		if betAmount > playerBalance:
-			await message.channel.send('Not enough money to cover the bet! You currently have '+str(playerBalance)+' '+currencyName[message.guild.id]+'.')
-		else:
-			tmp = await message.channel.send('The flip is...')
-			await asyncio.sleep(1)
-			flipResult = random.choice(['heads', 'tails'])
-			if flipResult[:1] == betFlip[:1]:
-				await tmp.edit(content='The flip is %s! You win %s %s.' % (flipResult, betAmount, currencyName[message.guild.id]))
-				winnings = betAmount
-			else:
-				await tmp.edit(content='The flip is %s. You lose %s %s.' % (flipResult, betAmount, currencyName[message.guild.id]))
-				winnings = betAmount * -1
-			_incrementbalance(message.author.id, winnings)
-	else:
-		await message.channel.send('You must bet on either heads or tails! (ex. flip 100 heads)')
 
 
 global jail
