@@ -43,6 +43,8 @@ debugMode = False
 deleteCommands = False
 logDeletedMessages = True
 exemptLogDeletedMessages = []
+intents = discord.Intents.default()
+intents.members = True
 # Database variables
 dbConn = None
 dbName = ''
@@ -525,7 +527,7 @@ def isModuleAllowedHere(guildId, channelId, moduleName):
 
 loadConfig()
 loadModules()
-client = discord.Client()
+client = discord.Client(intents=intents)
 
 # This runs when the bot successfully logs into Discord
 @client.event

@@ -1,3 +1,6 @@
+ee.py
 hub.json
 *.sublime-project
 *.sublime-workspace
+testing
+/logs
