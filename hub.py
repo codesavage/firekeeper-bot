@@ -527,7 +527,7 @@ def isModuleAllowedHere(guildId, channelId, moduleName):
 
 loadConfig()
 loadModules()
-client = discord.Client()
+client = discord.Client(intents=intents)
 
 # This runs when the bot successfully logs into Discord
 @client.event
