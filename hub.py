@@ -43,6 +43,8 @@ debugMode = False
 deleteCommands = False
 logDeletedMessages = True
 exemptLogDeletedMessages = []
+intents = discord.Intents.default()
+intents.members = True
 # Database variables
 dbConn = None
 dbName = ''

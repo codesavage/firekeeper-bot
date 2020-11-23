@@ -7,7 +7,7 @@
 			"arguments": {
 				"0": {
 					"name": "bet",
-					"default": "10",
+					"default": "",
 					"required": "true"
 				}
 			},

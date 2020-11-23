@@ -7,49 +7,120 @@
 #- Rewrite the qrcode command to use an image-based service that can be attached to an embed (https://www.qrcode-monkey.com/qr-code-api-with-logo)
 #- Look into fixing actioncloud's word sizes
 
+# Flip to-do: clean up output text, create help text, come up with new name
 global newflip
 async def newflip(message, args):
-	try:
-		betAmount = abs(int(args[0]))
-	except ValueError:
-		await sendEmbed(message.channel, None, 'Bet amount must be a number! (ex. flip 1000)')
+	# Check for active game
+	if (message.guild.id, message.author.id, "flip") in activeGames:
+		await sendEmbed(message.channel, None, '%s, you already have an active flip game. Try typing `show flip` or `quit flip`.' % message.author.mention)
 		return
+	# Validate player's bet
+	if args[0] == '':
+		await sendEmbed(message.channel, None, 'You must enter a bet. Bet amount can be between 1,000 and 1,000,000 %s.' % currencyName[message.guild.id])
+		return
+	else:
+		try:
+			betAmount = abs(int(args[0]))
+		except ValueError:
+			await sendEmbed(message.channel, None, 'Bet amount must be a number! (ex. `flip 1000`)')
+			return
+	# Check player balance and verify they have enough to cover the bet
 	playerBalance = _getbalance(message.author.id)
 	if betAmount > playerBalance:
-		await sendEmbed(messagechannel, None, 'Not enough money to cover the bet! You currently have '+str(playerBalance)+' '+currencyName[message.guild.id]+'.')
+		await sendEmbed(message.channel, None, 'Sorry %s, you don\'t have enough money to cover that bet. You currently have %s %s.' % (message.author.mention, prettyNums(playerBalance), currencyName[message.guild.id]))
 		return
-	goodChoices = ['heads', 'tails', 'stand']
+	# Deduct player's bet
+	_incrementbalance(message.author.id, betAmount * -1)
+	# Prepare game variables
+	goodChoices = ['heads', 'h', 'tails', 't', 'show flip', 'quit flip']
 	tier = 1
-	stake = bet / 2
+	stake = betAmount / 2
+	winnings = 0
 	playing = True
-
-	while playing:
-		choice = ''
-		while choice not in goodChoices:
-			#choice = input('Bet: %s\nRound: %s\nStake: %s\n\nWill you bet on heads or tails, or will you stand?\n' % (bet, tier, stake))
-			choice = 'heads'
-		if choice == 'stand':
-			playing = False
-			break
-		flip = random.choice(['heads', 'tails'])
-		if flip == 'heads' and choice == 'heads' or flip == 'tails' and choice == 'tails':
+	outcome = ''
+	# Function to check for valid plays
+	def CheckPlay(msg):
+		if not (msg.channel == message.channel and msg.author == message.author):
+			return False
+		if msg.content.lower() in goodChoices:
+			return True
+	# Function to check the coin flip
+	def CheckFlip(play):
+		flip = random.choice(['h', 't'])
+		if play == flip:
 			outcome = 'win'
 		else:
 			outcome = 'lose'
-		await sendEmbed(message.channel, None, 'The flip was %s. You %s!\n' % (flip, outcome))
-		if outcome == 'win':
+		return outcome
+	def AdvanceTier(tier, betAmount):
 			tier += 1
-			stake = stake * 2
+			stake = (betAmount / 2) ** tier
+			if tier == 2:
+				winnings = math.trunc(betAmount / 2)
+			else:
+				winnings = math.trunc((betAmount / 2) * (2 ** (tier - 2)))
+			return tier, stake, winnings
+	# Function to update the active embed
+	async def UpdateEmbed(tier, betAmount, outcome, winnings):
+		stats = 'Tier: %s\nBet: %s\nWinnings: %s\n\n' % (tier, prettyNums(betAmount), prettyNums(winnings))
+		if outcome == 'win':
+			output = '%sYou guessed right! Do you want to bet on the next flip being (h)eads or (t)ails?' % stats
+		elif outcome == 'lose':
+			output = '%sYou guessed wrong, you lose!' % stats
+		elif outcome == 'quit':
+			output = '%sYou forfeited the game and lost your bet of %s %s.' % (stats, betAmount, currencyName[message.guild.id])
+		elif outcome == 'timeout':
+			output = '%sYour game timed out and you lost your bet of %s %s.' % (stats, betAmount, currencyName[message.guild.id])
+		elif outcome == 'show':
+			output = '%sDo you want to bet on the next flip being (h)eads or (t)ails?' % stats
+			return output
 		else:
+			output = '%sDo you want to bet on the next flip being (h)eads or (t)ails?'	% stats
+		embed = discord.Embed(description = output, color = embedColor)
+		await activeMessage.edit(embed = embed)
+	# Send game embed
+	embed = discord.Embed(description = 'It\'s flippin\' time!', color = embedColor)
+	activeMessage = await message.channel.send(embed = embed)
+	time.sleep(1)
+	activeGames.append((message.guild.id, message.author.id, 'flip'))
+	# Game loop
+	while playing:
+		await UpdateEmbed(tier, betAmount, outcome, winnings)
+		# Wait for player's message
+		try:
+			play = await client.wait_for('message', timeout = 900, check = CheckPlay)
+		# Handle timeouts
+		except asyncio.TimeoutError:
+			outcome = 'timeout'
 			playing = False
-
-	if stake > bet:
-		output = 'You made it to round %s and won %s over your initial bet.' % (tier, stake - bet)
-	elif stake < bet:
-		output = 'You made it to round %s. You lost your initial bet of %s and potential winnings of %s.' % (tier, bet, stake - bet)
-	else:
-		output = 'You made it to round %s and broke even with your bet.' % tier
-	await sendEmbed(message.channel, None, output)
+			break
+		# Delete player's message
+		exemptLogDeletedMessages.append(play.id)
+		await play.delete()
+		# Handle quitters
+		if play.content.lower() == 'quit flip':
+			outcome = 'quit'
+			playing = False
+		# Handle lost embed
+		elif play.content.lower() == 'show flip':
+			try:
+				exemptLogDeletedMessages.append(activeMessage.id)
+				await activeMessage.delete()
+			except:
+				pass
+			outcome = 'show'
+			output = await UpdateEmbed(tier, betAmount, outcome, winnings)
+			embed = discord.Embed(description = output, color = embedColor)
+			activeMessage = await message.channel.send(embed = embed)
+		# Handle valid play
+		else:
+			outcome = CheckFlip(play.content[0].lower())
+			if outcome == 'win':
+				tier, stake, winnings = AdvanceTier(tier, betAmount)
+			else:
+				playing = False
+	await UpdateEmbed(tier, betAmount, outcome, winnings)
+	activeGames.remove((message.guild.id, message.author.id, 'flip'))
 
 
 global jail
