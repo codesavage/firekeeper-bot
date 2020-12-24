@@ -376,20 +376,31 @@ async def blackjack(message, args):
 		return
 
 	# Check bet
-	try:
-		bet = int(args[0])
-	except (ValueError, TypeError) as e:
-		bet = -1
+	betArgs = ['daily', 'weekly', 'annual', 'centennial']
+	betCmds = ['bet = 500', 'bet = random.randrange(1750, 7000)', 'bet = random.randrange(91250, 365000)', 'bet = random.randrange(9125000, 36500000)']
+	if bet in betArgs:
+		timer = _gettimer(message.guild.id, message.author.id, bet)
+		if (timer):
+			await message.channel.send('You have to wait %s before you can claim your %s allowance.' % (prettyTime(timer, 'seconds'), bet))
+			return
+		else:
+			_settimer(message.guild.id, message.author.id, bet, '24')
+			exec(betCmds[betArgs.index(bet)])
+	else:
+		try:
+			bet = int(args[0])
+		except (ValueError, TypeError) as e:
+			bet = -1
 
-	if bet < 0:
-		await message.channel.send("Bet must be either 0 or a positive number.")
-		return
+		if bet < 0:
+			await message.channel.send("Bet must be either 0 or a positive number.")
+			return
 
-	userBalance = _getbalance(message.author.id)
+		userBalance = _getbalance(message.author.id)
 
-	if bet > userBalance:
-		await message.channel.send("You're a little short. Current balance: %s" % (prettyNums(userBalance)))
-		return
+		if bet > userBalance:
+			await message.channel.send("You're a little short. Current balance: %s" % (prettyNums(userBalance)))
+			return
 
 	_incrementbalance(message.author.id, bet * -1)
 
