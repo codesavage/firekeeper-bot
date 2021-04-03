@@ -52,6 +52,8 @@ global leaderboard
 async def leaderboard(message, args):
 	argument = args[0]
 	arguments = {'arguments', 'currency', 'xp'}
+	balanceLimit = 10000
+	xpLimit = 0
 	if argument.lower() not in arguments:
 		await sendEmbed(message.channel, 'Leaderboard', 'Sorry, *%s* isn\'t a valid argument. Please use `%sleaderboard arguments` to see all available arguments.' % (argument, prefix))
 		return
@@ -69,14 +71,14 @@ async def leaderboard(message, args):
 		for member in client.get_all_members():
 			if not member.bot:
 				balance = _getbalance(member.id)
-				if balance > 0:
+				if balance > balanceLimit:
 					members[member] = balance
 	elif argument.lower() == 'xp':
 		title = 'XP Leaderboard for %s' % message.guild.name
 		for member in message.guild.members:
 			if not member.bot:
 				xp = _getxp(message.guild.id, member.id)
-				if xp > 0:
+				if xp > xpLimit:
 					members[member] = xp
 	members = sorted(members.items(), key = lambda x: -x[1])
 	output = ''
