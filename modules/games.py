@@ -378,6 +378,7 @@ async def blackjack(message, args):
 	# Check bet
 	betArgs = ['daily', 'weekly', 'annual', 'centennial']
 	betCmds = ['bet = 500', 'bet = random.randrange(1750, 7000)', 'bet = random.randrange(91250, 365000)', 'bet = random.randrange(9125000, 36500000)']
+	bet = args[0]
 	if bet in betArgs:
 		timer = _gettimer(message.guild.id, message.author.id, bet)
 		if (timer):
