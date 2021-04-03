@@ -3,7 +3,7 @@ Fire Keeper (a Discord bot)
 <http://firekeeper.info/>
 
 ## About
-Firekeeper.py is a multi-purpose Discord bot lightly themed after the Dark Souls series. It started as a small Python project by [codesavage]() and [k3wio]() and was initially released on its home server on February 14th, 2018. Since then it's grown significantly in both size and scope, and it's fair to say it's something we're proud to call our own.
+Firekeeper.py is a multi-purpose Discord bot lightly themed after the Dark Souls series. It started as a small Python project by [codesavage](https://github.com/codesavage) and [k3wio](https://github.com/k3wio) and was initially released on its home server on February 14th, 2018. Since then it's grown significantly in both size and scope, and it's fair to say it's something we're proud to call our own.
 
 ## Features
 - Multi-server functionality
@@ -14,6 +14,8 @@ Firekeeper.py is a multi-purpose Discord bot lightly themed after the Dark Souls
 - Enhanced mod tools, such as timed muting and permanent warn/ban logs
 
 ## Installation
+NOTE: These instructions are a work-in-progress, and as such are currently missing vital information.
+
 These notes may not be comprehensive, but they should be enough to get you started if you're interested in self-hosting the bot.
 `Include our server distro/version`
 `Include Python version requirement`
@@ -27,7 +29,7 @@ The following modules are required and can be installed with Pip:
 - qrcode
 - pymaging - git+git://github.com/ojii/pymaging.git#egg=pymaging
 - pymaging-png - git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
-`there are some others not listed here, pull from setup script on the desktop`
+`there are some others not listed here, pull from setup script`
 
 `Go over MongoDB setup`
 `Go over Twilio setup or feature removal`
