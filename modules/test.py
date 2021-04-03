@@ -7,7 +7,13 @@
 #- Rewrite the qrcode command to use an image-based service that can be attached to an embed (https://www.qrcode-monkey.com/qr-code-api-with-logo)
 #- Look into fixing actioncloud's word sizes
 
-# Flip to-do: clean up output text, create help text, come up with new name
+
+global newhang
+async def newhang(message, args):
+	pass
+
+
+# Flip to-do: clean up output text, create help text, come up with new name, add high score record
 global newflip
 async def newflip(message, args):
 	# Check for active game

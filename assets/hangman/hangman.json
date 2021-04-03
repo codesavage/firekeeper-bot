@@ -1,0 +1,37 @@
+{
+    "gameName": "Hangman",
+	"gameDescription": "Hangman is a paper and pencil guessing game for two or more players. One player thinks of a word, phrase or sentence and the other(s) tries to guess it by suggesting letters within a certain number of guesses.",
+	"categories": {
+		"Movies": {
+			"categoryNumber": "1",
+			"categoryDescription": "Hollywood and the Big Screen",
+			"answers": {
+				"1": {
+						"answerName": "The Matrix",
+						"imageName": "00001_matrix.jpg",
+						"answerDescription": "The Matrix is a 1999 American science fiction action film written and directed by the Wachowskis, and produced by Joel Silver. It stars Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, and Joe Pantoliano and is the first installment in the Matrix franchise. It depicts a dystopian future in which humanity is unknowingly trapped inside a simulated reality, the Matrix, created by intelligent machines to distract humans while using their bodies as an energy source. When computer programmer Thomas Anderson, under the hacker alias \"Neo\", uncovers the truth, he \"is drawn into a rebellion against the machines\" along with other people who have been freed from the Matrix."
+				}
+			}
+		},
+		"Sports": {
+			"categoryNumber": "2",
+			"categoryDescription": "Sports!!!",
+			"answers": {
+				"1": {
+						"answerName": "Eric Koston",
+						"imageName": "00003_erickoston.jpg",
+						"answerDescription": "Eric Koston (born April 29, 1975) is an American professional skateboarder and company owner. He has been featured in the Tony Hawk's video game series, and the Electronic Arts (EA) video games Skate 2 and Skate 3. Koston co-owns both Fourstar Clothing (with Guy Mariano) and the skatepark/website \"The Berrics\" (with professional skateboarder Steve Berra)."
+				}
+			}
+		},
+		"Video Games": {
+			"categoryNumber": "3",
+			"categoryDescription": "Video Games and Digital Entertainment",
+			"1": {
+					"answerName": "Dark Souls 3",
+					"imageName": "00002_darksouls3.jpeg",
+					"answerDescription": "Dark Souls III is an action role-playing video game developed by FromSoftware and published by Bandai Namco Entertainment for PlayStation 4, Xbox One, and Microsoft Windows. The fourth installment of the Souls series and the final installment of the Dark Souls trilogy, the game was released in Japan in March 2016 and worldwide a month later."
+			}
+		}
+	}
+}

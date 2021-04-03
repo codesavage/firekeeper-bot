@@ -2,6 +2,12 @@
     "moduleName": "test",
 	"friendlyName": "Test Commands",
 	"commands": {
+		"newhang":{
+			"functionName": "newhang",
+			"arguments": {},
+			"helpText": "",
+			"shortHelp": ""
+		},
 		"newflip":{
 			"functionName": "newflip",
 			"arguments": {
