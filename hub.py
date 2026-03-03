@@ -4,6 +4,7 @@ import asyncio
 from bson.objectid import ObjectId
 import collections
 import datetime
+import difflib
 import discord
 import io
 import json
@@ -40,6 +41,7 @@ guildResponses = {}
 guildTimers = {}
 xpLevelTiers = {}
 debugMode = False
+predictionMode = True
 deleteCommands = False
 logDeletedMessages = True
 exemptLogDeletedMessages = []
@@ -95,6 +97,7 @@ def sigtermHandler(sigNum, frame = False):
 	asyncio.ensure_future(client.close())
 	time.sleep(2)
 
+
 def loadguildConfig(guildid):
 	try:
 		guild = client.get_guild(guildid)
@@ -113,6 +116,7 @@ def loadguildConfig(guildid):
 	xpLevelTiers[guildid] = getXpLevelTiers(guildid)
 	currencyName[guildid] = getCurrencyName(guildid)
 	mutedRole[guildid] = getMutedRole(guildid)
+
 
 # Variables and configurations that need to be set on startup
 def loadConfig():
@@ -183,6 +187,7 @@ def setClientVariables():
 	syntheticHub = client.get_guild(configJSON['synthetichub'])
 	errorChannel = syntheticHub.get_channel(configJSON['errorchannel'])
 	logsChannel = syntheticHub.get_channel(configJSON['logschannel'])
+
 
 def unloadConfig():
 	global configJSON
@@ -488,6 +493,18 @@ def prettyNums(number):
 	return num
 
 
+# Compares two strings (s1, s2) and returns True if they are within x number of changes (numChanges) of each other
+def compareStrings(s1, s2, numChanges):
+	# Checks if strings differ by a single change (insertion, deletion, or substitution).
+	diffs = [li for li in difflib.ndiff(s1, s2) if li[0] != ' ']
+	# A single difference means the length of the diff list will be exactly 2 
+	# (one removal, one addition) for a substitution, or 1 for an insertion/deletion.
+	# The 'ndiff' function generates lines starting with '+', '-', or ' '.
+	# We filter out matching characters (' '). A single substitution will result in one '+' and one '-'.
+	insertions_deletions = [li for li in diffs if li[0] in ('+', '-')]
+	return len(insertions_deletions) <= numChanges
+
+
 # Added this here to shorten the code everywhere else, as this is used in nearly every bot command
 async def sendEmbed(channel, title, output):
 	if title != None:
@@ -496,14 +513,18 @@ async def sendEmbed(channel, title, output):
 		embed = discord.Embed(description = output, color = embedColor)
 	await channel.send(embed = embed)
 
+
 def isModuleForGod(moduleName):
 	return moduleName == 'system' or moduleName == 'test'
+
 
 def isUserGod(userId):
 	return userId in unrestrictedUsers
 
+
 def isModuleForAdmins(moduleName):
 	return moduleName == 'moderation'
+
 
 def isUserAdmin(guildId, userId):
 	guild = client.get_guild(guildId)
@@ -519,15 +540,19 @@ def isUserAdmin(guildId, userId):
 				break
 	return userId in admins
 
+
 def isCommandExempt(command):
 	return command in exemptCommands
+
 
 def isModuleAllowedHere(guildId, channelId, moduleName):
 	return _getmodulerestriction(moduleName, guildId, channelId) == False
 
+
 loadConfig()
 loadModules()
 client = discord.Client(intents=intents)
+
 
 # This runs when the bot successfully logs into Discord
 @client.event
@@ -694,6 +719,25 @@ async def on_message(message):
 			if deleteCommands:
 				exemptLogDeletedMessages.append(message.id)
 				await message.delete()
+		elif predictionMode:
+			print('Command %s not found... attempting prediction' % command)
+			commandChosen = false
+			predictionLevel = 0
+			predictionCandidates = {}
+			while !commandChosen:
+				predictionLevel += 1
+				print('Current prediction level: ' + predictionLevel)
+				for c in moduleCommands:
+					if debugMode:
+						print('Attempting match: ' + c)
+					predictionMatch = compareStrings(command, c, 2)
+					if predictionMatch:
+						predictionCandidates.append(c)
+				if predictionCandidates.len() > 0:
+					if debugMode:
+						print('Prediction Candidates: ' + predictionCandidates)
+					print('Command match found! %s -> %s' % (command, random.choice(predictionCandidates)))
+					commandChosen = True
 		return
 	# Check to see if any response conditions are met
 	for i in guildResponses[message.guild.id]:
@@ -725,6 +769,7 @@ async def on_message_edit(before, after):
 			embed.set_author(name = 'Message Edited', icon_url = after.author.avatar_url)
 			embed.set_footer(text = timestamp)
 			await logsChannel.send(embed = embed)
+
 
 # Log any deleted messages
 @client.event
